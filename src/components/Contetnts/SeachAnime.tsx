@@ -1,9 +1,11 @@
 import { useState } from "react";
 
-function SeachAnime() {
-    const [keyword, setKeyword] = useState<string>('')
-    console.log(keyword)
+type Props = {
+    keyword: string;
+    setKeyword: (keyword: string) => void;
+}
 
+function SeachAnime({keyword, setKeyword}: Props) {
 	return (
 		<div className=" text-gray-100 p-2 border border-b-gray-1000 border-b-2">
             <input
