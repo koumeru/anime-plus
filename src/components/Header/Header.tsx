@@ -9,23 +9,17 @@ function Header() {
 						Anime+
 					</a>
 				</h1>
-        <h2 className='text-xl text-center'><span>⭐</span>アニメの評価を共有し、次に見る作品を見つけよう<span>⭐</span></h2>
+				<h2 className="text-xl text-center">
+					<span>⭐</span>アニメの評価を共有し、次に見る作品を見つけよう<span>⭐</span>
+				</h2>
 				<div className="flex flex-col justify-end text-center items-center">
-					<img src="/ball.jpg" alt="YourIcon" className="w-15 h-15 rounded-full cursor-pointer mx-auto"/>
-					<p className=''>UserName</p>
+					<img
+						src="/ball.jpg"
+						alt="YourIcon"
+						className="w-15 h-15 rounded-full cursor-pointer mx-auto"
+					/>
+					<p className="">UserName</p>
 				</div>
-			</div>
-			<div className="flex flex-col grow ">
-				<input
-					type="text"
-					className="flex text-xl placeholder-blue-900 text-center font-bold my-1 mx-1 bg-gray-100 rounded-3xl text-blue-900 hover:bg-white"
-					placeholder="アニメ作品を探す"
-				/>
-				<input
-					type="submit"
-					value="検索する"
-					className="flex text-xl mx-1 mt-2 bg-blue-400 text-white rounded-3xl cursor-pointer hover:scale-y-110"
-				/>
 			</div>
 		</header>
 	)
