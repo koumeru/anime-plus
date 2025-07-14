@@ -31,9 +31,6 @@ async function fetcher(key: string) {
 function App() {
 	const [keyword, setKeyword] = useState('')
 	const [page, setPage] = useState(1)
-
-	const [allAnimeList, setAllAnimeList] = useState<any[]>([])
-	const [isLoadingAll, setIsLoadingAll] = useState(false)
 	const per_page = 20
 
 	// useSWRでアニメデータを取得
@@ -44,54 +41,10 @@ function App() {
 	} = useSWR(
 		`https://api.annict.com/v1/works?access_token=${
 			import.meta.env.VITE_ANNICT_API_KEY
-		}&sort_watchers_count=desc&page=${page}&per_page=${per_page}`,
+		}&sort_watchers_count=desc&page=${page}&per_page=${per_page}&filter_title=${keyword}`,
 		fetcher
 	)
-	console.log('アニメリスト:', animeList, 'ローディング:', isLoading, 'エラー:', error)
-
-	const loadAllAnimeData = async () => {
-		setIsLoadingAll(true)
-		try {
-			let allData: any[] = []
-			let currentPage = 1
-			let hasMore = true
-
-			while (hasMore) {
-				const response = await axios.get(
-					`https://api.annict.com/v1/works?access_token=${
-						import.meta.env.VITE_ANNICT_API_KEY
-					}&sort_watchers_count=desc&page=${currentPage}&per_page=${50}`
-				)
-
-				const works = response.data.works
-				if (works && works.length > 0) {
-					allData = [...allData, ...works]
-					currentPage++
-					console.log(
-						`ページ${currentPage - 1}のデータを取得しました。累計: ${allData.length}件`
-					)
-				} else {
-					hasMore = false
-				}
-
-				// APIの負荷を考慮して少し待機
-				// await new Promise((resolve) => setTimeout(resolve, 100))
-			}
-
-			setAllAnimeList(allData)
-			console.log(`全データの取得が完了しました。総件数: ${allData.length}件`)
-		} catch (error) {
-			console.error('全データ取得中にエラーが発生しました:', error)
-		} finally {
-			setIsLoadingAll(false)
-		}
-	}
-
-    useEffect(() => {
-        // 初回レンダリング時に全アニメデータを取得
-        isLoadingAll ||
-        loadAllAnimeData()  
-    }, [])
+	console.log('アニメリスト:', animeList)
 
 	// フロントエンド
 	return (
