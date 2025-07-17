@@ -8,8 +8,4 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
-  optimizeDeps: {
-    include: ['react', 'react-dom', 'swr', 'axios'],
-    force: true
-  }
 })

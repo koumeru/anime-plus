@@ -1,5 +1,5 @@
-import { usePage } from "../../App"
-import { useAnimeList } from "../../App"
+import { usePage } from "../../page/Top"
+import { useAnimeList } from "../../page/Top"
 
 function Pagenation() {
     const [page, setPage] = usePage()

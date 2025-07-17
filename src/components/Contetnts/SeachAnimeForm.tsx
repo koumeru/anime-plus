@@ -1,6 +1,6 @@
-import { useKeyword } from '../../App'
+import { useKeyword } from '../../page/Top'
 
-export function SeachAnime() {
+export function SeachAnimeForm() {
 	const [keyword, setKeyword] = useKeyword()
 
 	return (
@@ -15,4 +15,4 @@ export function SeachAnime() {
 	)
 }
 
-export default SeachAnime
+export default SeachAnimeForm

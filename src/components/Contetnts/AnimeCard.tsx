@@ -1,4 +1,4 @@
-import { useAnimeList } from '../../App'
+import { useAnimeList } from '../../page/Top'
 
 function AnimeCard() {
 	const [animeList] = useAnimeList()
