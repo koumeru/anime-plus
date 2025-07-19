@@ -1,6 +1,6 @@
-import { useKeyword } from '../../App'
+import { useKeyword} from '../../page/Top'
 
-export function SeachAnime() {
+export function SeachAnimeForm() {
 	const [keyword, setKeyword] = useKeyword()
 
 	return (
@@ -8,11 +8,11 @@ export function SeachAnime() {
 			<input
 				className="display: block w-8/10 text-center bg-white mx-auto outline-2 my-2 p-1 rounded-3xl placeholder-gray-800 text-gray-800 font-bold"
 				type="text"
-				placeholder="アニメ作品を探す"
+				placeholder="タイトルやキーワードから探す"
 				onChange={(e) => setKeyword(e.target.value)}
 			/>
 		</div>
 	)
 }
 
-export default SeachAnime
+export default SeachAnimeForm
