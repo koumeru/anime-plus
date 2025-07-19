@@ -3,6 +3,7 @@ import Header from '../components/Header/Header'
 import AnimeCard from '../components/Contetnts/AnimeCard'
 import SeachAnimeForm from '../components/Contetnts/SeachAnimeForm'
 import Pagenation from '../components/Contetnts/Pagenation'
+import FilterAnime from '../components/Contetnts/FilterAnime'
 
 import useSWR from 'swr'
 import axios from 'axios'
@@ -34,23 +35,55 @@ export const usePage = () => {
 	return context
 }
 
+// sortURLのコンテキスト設定
+const sortURLContext = createContext<[string, React.Dispatch<React.SetStateAction<string>>]>([
+    '',
+    () => {}
+])
+
+export const useSortURL = () => {
+    const context = useContext(sortURLContext)
+    return context
+}
+
+// 放送時期フィルターのコンテキスト設定
+const filterSeasonContext = createContext<[string, React.Dispatch<React.SetStateAction<string>>]>([
+    '',
+    () => {}
+])
+export const useFilterSeason = () => {
+    const context = useContext(filterSeasonContext)
+    return context
+}
+
 // APIからアニメデータを取得する関数（useSWRを使って高速化）
 async function fetcher(key: string) {
 	const response = await axios.get<any>(key)
 	return response.data.works
 }
 
+const GetToday = () => {
+    const today = new Date()
+    console.log(today.getMonth() + 1)
+    console.log(today.getFullYear())   
+}
+
+
 function TopPage() {
 	const [keyword, setKeyword] = useState('')
 	const [page, setPage] = useState(1)
 	const per_page = 20
+    const [sort, setSort] = useState('sort_watchers_count=desc') //ソート順
+    const [filter_season, setFilterSeason] = useState(`&filter_title=${keyword}`) // フィルター条件
 	const [url, seturl] = useState('https://api.annict.com/v1/works?access_token=')
+
+    GetToday()
 
 	// useSWRでアニメデータを取得
 	const { data: animeList, isLoading } = useSWR(
 		`${url}${
 			import.meta.env.VITE_ANNICT_API_KEY
-		}&sort_watchers_count=desc&page=${page}&per_page=${per_page}&filter_title=${keyword}`,
+		}&${sort}&page=${page}&per_page=${per_page}&filter_title=${keyword}&filter_season=${filter_season}`,
 		fetcher
 	)
 	console.log('アニメリスト:', animeList)
@@ -63,15 +96,20 @@ function TopPage() {
 	return (
 		<>
 			<Header />
+            <sortURLContext.Provider value={[sort, setSort]}>
 			<KeywordContext.Provider value={[keyword, setKeyword]}>
+                <filterSeasonContext.Provider value={[filter_season, setFilterSeason]}>
                 <PageContext.Provider value={[page, setPage]}>
 				<AnimeListContext.Provider value={[isLoading ? [] : animeList]}>
+                    <FilterAnime />
 					<SeachAnimeForm />
 					<AnimeCard />
 					<Pagenation />
 				</AnimeListContext.Provider>
                 </PageContext.Provider>
+                </filterSeasonContext.Provider>
 			</KeywordContext.Provider>
+            </sortURLContext.Provider>
 		</>
 	)
 }

@@ -3,7 +3,7 @@ function Header() {
 		<header className="bg-gray-800 text-gray-100 p-2 border border-b-gray-1000 border-b-2">
 			<div className="container mx-auto items-center text-center sm:flex justify-between">
 				<h1 className="text-3xl font-bold underline decoration-3 mb-2 ">
-					<a href="home" className="hover:text-blue-200 duration-300">
+					<a href="./" className="hover:text-blue-200 duration-300">
 						Anime+
 					</a>
 				</h1>
